@@ -7,7 +7,6 @@
 |password|string|
 |email|string|
 
-<br>
 ## Taskテーブル<br>
 |カラム|タイプ|
 |:---|:---|
@@ -20,7 +19,6 @@
 |status|string|
 |content|text|
 
-<br>
 ## Labelテーブル<br>
 |カラム|タイプ|
 |:---|:---|
