@@ -1,5 +1,6 @@
 # テーブル
 userテーブル<br>
+|カラム|タイプ|
 |---|---|
 |id||
 |user_name|string|
@@ -8,6 +9,7 @@ userテーブル<br>
 
 <br>
 Taskテーブル<br>
+|カラム|タイプ|
 |---|---|
 |id||
 |user_id|integer|
@@ -20,6 +22,7 @@ Taskテーブル<br>
 
 <br>
 Labelテーブル<br>
+|カラム|タイプ|
 |---|---|
 |id||
 |task_id|integer|
