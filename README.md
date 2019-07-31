@@ -1,5 +1,5 @@
 # テーブル
-userテーブル<br>
+## userテーブル<br>
 |カラム|タイプ|
 |:---|:---|
 |id||
@@ -8,7 +8,7 @@ userテーブル<br>
 |email|string|
 
 <br>
-Taskテーブル<br>
+## Taskテーブル<br>
 |カラム|タイプ|
 |:---|:---|
 |id||
@@ -21,7 +21,7 @@ Taskテーブル<br>
 |content|text|
 
 <br>
-Labelテーブル<br>
+## Labelテーブル<br>
 |カラム|タイプ|
 |:---|:---|
 |id||
