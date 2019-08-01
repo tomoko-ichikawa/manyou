@@ -1,6 +1,6 @@
 # テーブル
 ## userテーブル<br>
-|カラム|タイプ|
+|Column|Type|
 |:---|:---|
 |id||
 |user_name|string|
@@ -8,7 +8,7 @@
 |email|string|
 
 ## Taskテーブル<br>
-|カラム|タイプ|
+|Column|Type|
 |:---|:---|
 |id||
 |user_id|integer|
@@ -20,7 +20,7 @@
 |content|text|
 
 ## Labelテーブル<br>
-|カラム|タイプ|
+|Column|Type|
 |:---|:---|
 |id||
 |task_id|integer|
