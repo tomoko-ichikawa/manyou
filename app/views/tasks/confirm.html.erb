@@ -17,3 +17,15 @@
   <p>priority:<%= @task.priority_i18n %></p>
   <%= form.submit "登録する" %>
 <% end %>
+
+<%= form_with(model: @task, url: new_task_path, local: true, method: 'get') do |form| %>
+  <%= form.hidden_field :task_name %>
+  <%= form.hidden_field :task_name %>
+  <%= form.hidden_field :deadline %>
+  <%= form.hidden_field :deadline %>
+  <%= form.hidden_field :priority %>
+  <%= form.hidden_field :status %>
+  <%= form.hidden_field :content %>
+  <%= form.hidden_field :content %>
+  <%= form.submit "戻る", name: 'back' %>
+<% end %>
