@@ -16,8 +16,8 @@
       <tr>
         <td><%= task.task_name %></td>
         <td><%= task.content %></td>
-        <td><%= task.created_at %></td>
-        <td><%= task.deadline %></td>
+        <td><%= task.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <td><%= task.deadline.strftime("%Y-%m-%d %H:%M:%S") %></td>
         <td><%= task.status %></td>
         <td><%= task.priority_i18n %></td>
         <td><%= link_to 'details', task_path(task.id) %></td>
