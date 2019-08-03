@@ -5,7 +5,6 @@
   <table>
     <tr>
       <th><%= 'task_name' %></th>
-      <th><%= 'note' %></th>
       <th><%= 'created_at' %></th>
       <th><%= 'deadline' %></th>
       <th><%= 'status' %></th>
@@ -15,7 +14,6 @@
     <% @tasks.each do |task| %>
       <tr>
         <td><%= task.task_name %></td>
-        <td><%= task.content %></td>
         <td><%= task.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
         <td><%= task.deadline.strftime("%Y-%m-%d %H:%M:%S") %></td>
         <td><%= task.status %></td>
