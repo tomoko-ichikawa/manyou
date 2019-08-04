@@ -7,8 +7,8 @@ RSpec.feature "タスク管理機能", type: :feature do
 
   scenario "タスク一覧のテスト" do
 # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
-    Task.create!(task_name: 'test_task_01', content: 'testtesttest')
-    Task.create!(task_name: 'test_task_02', content: 'samplesample')
+    Task.create!(task_name: 'test_task_01', content: 'testtesttest', deadline: '2019-10-7')
+    Task.create!(task_name: 'test_task_02', content: 'samplesample', deadline: '2019-10-7')
 
     # tasks_pathにvisitする（タスク一覧ページに遷移する）
     visit tasks_path
