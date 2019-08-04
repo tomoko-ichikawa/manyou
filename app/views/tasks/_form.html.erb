@@ -19,10 +19,10 @@
   <%= form.label :priority %>
   <%= form.select :priority, Task.priorities_i18n.invert, {} %>
   <%= form.label :status %>
-  <%= form.select :status, [['done', 'done'],
-                            ['not_started', 'not_started'],
-                            ['in_progress', 'in_progress'],
-                            ['hold', 'hold']]
+  <%= form.select :status, [[t('views.done'),t('views.done')],
+                            [t('views.not_started'), t('views.not_started')],
+                            [t('views.in_progress'),t('views.in_progress')],
+                            [t('views.hold'), t('views.hold')]]
   %>
   <%= form.label :content %>
   <%= form.text_field :content %>
