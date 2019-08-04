@@ -1,4 +1,4 @@
 class Task < ApplicationRecord
   validates :task_name, :content, presence: true
-  enum priority: { not_entered: 0, high: 1, medium: 2, low: 3 }
+  enum priority: { 未着手: 0, 高: 1, 中: 2, 低: 3 }
 end
