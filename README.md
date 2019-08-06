@@ -28,14 +28,14 @@
 
 
 ## herokuデプロイ手順
-１　herokuへデプロイ
+１　herokuへデプロイ<br>
 $ git push heroku master
 
-２　データベースの移行
+２　データベースの移行<br>
 $ heroku run rails db:migrate
 
-３　アプリケーションにアクセス
+３　アプリケーションにアクセス<br>
 $ heroku config
 
-４　アプリケーションを開く
+４　アプリケーションを開く<br>
 $ heroku open
