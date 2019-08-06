@@ -32,4 +32,7 @@ RSpec.feature "タスク管理機能", type: :feature do
 
   scenario "タスク詳細のテスト" do
   end
+
+  scenario "タスクが作成日時の降順に並んでいるかのテスト" do
+  end
 end
