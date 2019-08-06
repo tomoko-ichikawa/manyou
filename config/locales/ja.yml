@@ -28,9 +28,9 @@ ja:
     status: 進捗
     content: コンテント
     created_at: 作成日
-    done: 終了
+    done: 完了
     not_started: 未着手
-    in_progress: 進行中
+    in_progress: 着手中
     hold: 中断
     details: 詳細
     edit: 編集
