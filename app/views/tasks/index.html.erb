@@ -1,6 +1,8 @@
 <h1><%= t('views.task') %></h1>
 <p><%= notice %></p>
 
+<%= link_to "終了期日でソートする", tasks_path(sort_expired: "true") %>
+
 <div class="table">
   <table>
     <tr>
