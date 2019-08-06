@@ -8,12 +8,12 @@ RSpec.describe Task, type: :model do
   end
 
   it "contentが空ならバリデーションが通らない" do
-    task = Task.new(task_name: '失敗しないテスト', note: '失敗テスト')
+    task = Task.new(task_name: '失敗しないテスト', content: '失敗テスト')
     expect(task).to be_valid
   end
 
   it "titleとcontentに内容が記載されていればバリデーションが通る" do
-    task = Task.new(task_name: '失敗しないテスト', note: '失敗しないテスト')
+    task = Task.new(task_name: '失敗しないテスト', content: '失敗しないテスト')
     expect(task).to be_valid
   end
 end
