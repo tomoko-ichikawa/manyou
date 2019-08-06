@@ -25,3 +25,17 @@
 |id||
 |task_id|integer|
 |lavel_name|string|
+
+
+## herokuデプロイ手順
+１　herokuへデプロイ
+$ git push heroku master
+
+２　データベースの移行
+$ heroku run rails db:migrate
+
+３　アプリケーションにアクセス
+$ heroku config
+
+４　アプリケーションを開く
+$ heroku open
