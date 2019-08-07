@@ -4,8 +4,12 @@ class TasksController < ApplicationController
   def index
     if params[:sort_expired]
       @tasks = Task.order(deadline: :desc)
+    elsif params[:sort_expired]
+      @tasks = Task.order(deadline: :asc)
     elsif params[:task] == nil
       @tasks = Task.order(created_at: :desc)
+    elsif params[:task][:search]
+     @tasks = Task.where('task_name LIKE ? AND status LIKE ?', "%#{params[:task][:task_name_key]}%", "%#{params[:task][:status_key]}%")
     end
   end
 
