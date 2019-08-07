@@ -12,6 +12,14 @@ FactoryBot.define do
     content { 'Factoryで作ったデフォルトのコンテント２' }
     deadline { '2019.10.31' }
     status { "進行中" }
+    priority { '中' }
+  end
+
+  factory :third_task, class: Task do
+    task_name { 'Factoryで作ったデフォルトのタイトル３' }
+    content { 'Factoryで作ったデフォルトのコンテント３' }
+    deadline { '2019.11.30' }
+    status { "終了" }
     priority { '低' }
   end
 

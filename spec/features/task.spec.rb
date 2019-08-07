@@ -7,6 +7,7 @@ RSpec.feature "タスク管理機能", type: :feature do
   background do
      FactoryBot.create(:task)
      FactoryBot.create(:second_task)
+     FactoryBot.create(:third_task)
   end
 
   scenario "タスク一覧のテスト" do
@@ -48,8 +49,14 @@ RSpec.feature "タスク管理機能", type: :feature do
     expect(page).to have_content 'タイトル２'
   end
 
-  scenario "優先度が同録できているか" do
-    visit tasks_path(id:7)
-    expect(page).to have_content '低'
+  scenario "優先度が登録できるか" do
+    visit tasks_path(sort_priority: "true")
+    expect(page).to have_content '高'
   end
+
+  scenario "優先度順にソートできているか" do
+   visit tasks_path
+   click_on '優先度でソートする'
+   expect(Task.order("priority ASC").map(&:id))
+ end
 end
