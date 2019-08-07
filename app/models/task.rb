@@ -4,8 +4,9 @@ class Task < ApplicationRecord
   scope :important, -> {order(priority: :asc)}
   scope :latest, -> {order(created_at: :desc)}
   scope :expired, -> {order(deadline: :asc)}
-  scope :search_task_name, ->(task_name){where("task_name like?", "%#{task_name}%")}
-  scope :search_status, ->(status){where("status like?", "%#{status}%")}
+
+  scope :search, -> (params) {where('(task_name LIKE ?) AND (status LIKE ?)', "%#{params[:task][:task_name_key]}%", "%#{params[:task][:status_key]}%")}
+
 
   enum priority: { 未着手: 0, 高: 1, 中: 2, 低: 3 }
 end

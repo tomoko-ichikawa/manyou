@@ -9,8 +9,7 @@ class TasksController < ApplicationController
     elsif params[:task] == nil
       @tasks = Task.order(created_at: :desc)
     elsif params[:task][:search]
-      @tasks = Task.search_task_name(params[:task][:task_name_key])
-      @tasks = Task.search_status(params[:task][:status_key])
+      @tasks = Task.search(params)
     end
   end
 
