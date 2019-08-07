@@ -3,6 +3,20 @@
 
 <%= link_to "終了期日でソートする", tasks_path(sort_expired: "true") %>
 
+<%= form_with( model:Task.new, method: :get, local: true ) do |f| %>
+  <%= f.label :task_name_key, t('views.search_task_name') %>
+  <%= f.text_field :task_name_key %>
+  <%= f.label :status_key, t('views.search_status') %>
+  <%= f.select :status_key, [[t('views.done'),t('views.done')],
+                             [t('views.not_started'),t('views.not_started')],
+                             [t('views.in_progress'),t('views.in_progress')],
+                             [t('views.hold'), t('views.hold')]],
+               prompt:''
+  %>
+  <%= f.hidden_field :search, value: 'true' %>
+  <%= f.submit t('views.search') %>
+<% end %>
+
 <div class="table">
   <table>
     <tr>

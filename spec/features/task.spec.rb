@@ -40,6 +40,11 @@ RSpec.feature "タスク管理機能", type: :feature do
 
   scenario "タスクが終了期限の降順に並んでいるかのテスト" do
     visit tasks_path(sort_expired: "true")
+  end
 
+  scenario "viewにてタスクが絞り込めるかのテスト" do
+    visit tasks_path
+    fill_in 'タスク名を検索', with: 'タイトル２'
+    expect(page).to have_content 'タイトル２'
   end
 end
