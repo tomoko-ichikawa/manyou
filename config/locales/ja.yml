@@ -22,6 +22,8 @@ ja:
 
   views:
     task: タスク一覧
+    search_task_name: タスク名を検索
+    search_status: 進捗を検索
     task_name: タスク名
     deadline: 期日
     priority: 優先度
@@ -32,6 +34,7 @@ ja:
     not_started: 未着手
     in_progress: 着手中
     hold: 中断
+    search: 検索
     details: 詳細
     edit: 編集
     destroy: 削除
