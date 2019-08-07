@@ -37,4 +37,10 @@ RSpec.feature "タスク管理機能", type: :feature do
      visit tasks_path
      expect(Task.order("updated_at DESC").map(&:id))
   end
+
+  scenario "viewにてタスクが絞り込めるかのテスト" do
+    visit tasks_path
+    fill_in 'タスク名を検索', with: 'タイトル２'
+    expect(page).to have_content 'タイトル２'
+  end
 end
