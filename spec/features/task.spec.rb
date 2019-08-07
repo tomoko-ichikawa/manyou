@@ -47,4 +47,9 @@ RSpec.feature "タスク管理機能", type: :feature do
     fill_in 'タスク名を検索', with: 'タイトル２'
     expect(page).to have_content 'タイトル２'
   end
+
+  scenario "優先度が同録できているか" do
+    visit tasks_path(id:7)
+    expect(page).to have_content '低'
+  end
 end
