@@ -40,6 +40,6 @@ RSpec.feature "タスク管理機能", type: :feature do
 
   scenario "タスクが終了期限の降順に並んでいるかのテスト" do
     visit tasks_path(sort_expired: "true")
-    expect(Task.order("deadline DESC").map(&:id))
+
   end
 end
