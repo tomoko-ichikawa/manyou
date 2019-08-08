@@ -11,6 +11,7 @@ class TasksController < ApplicationController
     elsif params[:task][:search]
       @tasks = Task.search(params)
     end
+    @tasks = @tasks.page(params[:page]).per(7)
   end
 
   def new
