@@ -25,6 +25,7 @@ ja:
     search_task_name: タスク名を検索
     search_status: 進捗を検索
     search: 検索
+    user_name: ユーザー名
     task_name: タスク名
     deadline: 期日
     priority: 優先度
