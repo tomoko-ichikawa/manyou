@@ -7,9 +7,9 @@ class TasksController < ApplicationController
       elsif params[:sort_expired]
          @tasks = current_user.tasks.expired
       elsif params[:task] == nil
-        @tasks = Task.latest
+        @tasks = current_user.tasks.latest
       elsif params[:task][:search]
-        @tasks = @tasks = current_user.tasks.search(params)
+        @tasks = current_user.tasks.search(params)
       end
     @tasks = @tasks.page(params[:page]).per(7)
   end
