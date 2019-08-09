@@ -1,7 +1,6 @@
 <h1><%= t('views.task') %></h1>
 <p><%= notice %></p>
 
-<button type="button" class="btn btn-default"><%= link_to '新しいtaskを投稿する',new_task_path %></button><br><br>
 <%= link_to "終了期日でソートする", tasks_path(sort_expired: "true") %><br>
 <%= link_to "優先度でソートする", tasks_path(sort_priority: "true") %><br>
 
