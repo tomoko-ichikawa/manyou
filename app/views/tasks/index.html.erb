@@ -28,6 +28,9 @@
       <th><center><%= link_to "終了期日▼", tasks_path(sort_expired: "true") %></center></th>
       <th><center><%= t('views.status') %></center></th>
       <th><center><%= link_to "優先度▼", tasks_path(sort_priority: "true") %></center></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
 
     <% @tasks.each do |task| %>
