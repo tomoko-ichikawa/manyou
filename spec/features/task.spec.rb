@@ -1,4 +1,3 @@
-# このrequireで、Capybaraなどの、Feature Specに必要な機能を使用可能な状態にしています
 require 'rails_helper'
 
 # このRSpec.featureの右側に、「タスク管理機能」のように、テスト項目の名称を書きます（do ~ endでグループ化されています）
@@ -8,6 +7,8 @@ RSpec.feature "タスク管理機能", type: :feature do
      FactoryBot.create(:task)
      FactoryBot.create(:second_task)
      FactoryBot.create(:third_task)
+
+     FactoryBot.create(:user)
   end
 
   scenario "タスク一覧のテスト" do
