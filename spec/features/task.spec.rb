@@ -4,16 +4,15 @@ require 'rails_helper'
 RSpec.feature "タスク管理機能", type: :feature do
   # scenario（itのalias）の中に、確認したい各項目のテストの処理を書きます。
   background do
-     FactoryBot.create(:task)
-     FactoryBot.create(:second_task)
-     FactoryBot.create(:third_task)
+    user = FactoryBot.create(:user)
+    FactoryBot.create(:task, user_id: user.id)
+    FactoryBot.create(:second_task, user_id: user.id)
+    FactoryBot.create(:third_task, user_id: user.id)
 
-     FactoryBot.create(:user)
-
-    visit session_path
-    fill_in 'email', with: 'test@test.com'
-    fill_in 'password', with: 'password'
-    click_button 'ログイン'
+    visit new_session_path
+    fill_in 'Email', with: 'test@test.com'
+    fill_in 'Password', with: 'password'
+    click_button 'Log in'
   end
 
   scenario "タスク一覧のテスト" do
