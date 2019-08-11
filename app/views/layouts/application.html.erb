@@ -10,6 +10,18 @@
   </head>
 
   <body>
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "#{key}") %>
+    <% end %>
+
+    <% if logged_in? %>
+      <button type="button" class="btn btn-default"><%= link_to "ユーザー詳細", admin_user_path(current_user.id) %></button>
+      <button type="button" class="btn btn-default"><%= link_to "ログアウト", session_path(current_user.id), method: :delete %></button>
+    <% else %>
+      <button type="button" class="btn btn-default"><%= link_to "新規ユーザー登録", new_admin_user_path %></button>
+      <button type="button" class="btn btn-default"><%= link_to "ログイン", new_session_path %></button>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

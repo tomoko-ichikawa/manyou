@@ -2,15 +2,15 @@ class TasksController < ApplicationController
   before_action :set_task, only:[:show, :edit, :update, :destroy]
 
   def index
-    if params[:sort_priority]
-      @tasks = Task.important
-    elsif params[:sort_expired]
-      @tasks = Task.expired
-    elsif params[:task] == nil
-      @tasks = Task.latest
-    elsif params[:task][:search]
-      @tasks = Task.search(params)
-    end
+      if params[:sort_priority]
+        @tasks = current_user.tasks.important
+      elsif params[:sort_expired]
+         @tasks = current_user.tasks.expired
+      elsif params[:task] == nil
+        @tasks = current_user.tasks.latest
+      elsif params[:task][:search]
+        @tasks = current_user.tasks.search(params)
+      end
     @tasks = @tasks.page(params[:page]).per(7)
   end
 
@@ -24,6 +24,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id
     if @task.save
       redirect_to tasks_path, notice: "taskを作成しました"
     else
@@ -54,8 +55,9 @@ class TasksController < ApplicationController
   end
 
   def confirm
-      @task = Task.new(task_params)
-      render :new if @task.invalid?
+    @task = Task.new(task_params)
+    @task.user_id = current_user.id
+    render :new if @task.invalid?
   end
 
   private

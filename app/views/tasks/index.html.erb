@@ -1,7 +1,7 @@
 <h1><%= t('views.task') %></h1>
 <p><%= notice %></p>
+<button type="button" class="btn btn-default"><%= link_to '新しいtaskを作成する',new_task_path %></button><br><br>
 
-<button type="button" class="btn btn-default"><%= link_to '新しいtaskを投稿する',new_task_path %></button><br><br>
 <%= link_to "終了期日でソートする", tasks_path(sort_expired: "true") %><br>
 <%= link_to "優先度でソートする", tasks_path(sort_priority: "true") %><br>
 
@@ -28,6 +28,9 @@
       <th><center><%= link_to "終了期日▼", tasks_path(sort_expired: "true") %></center></th>
       <th><center><%= t('views.status') %></center></th>
       <th><center><%= link_to "優先度▼", tasks_path(sort_priority: "true") %></center></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
 
     <% @tasks.each do |task| %>
