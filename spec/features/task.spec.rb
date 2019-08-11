@@ -9,6 +9,11 @@ RSpec.feature "タスク管理機能", type: :feature do
      FactoryBot.create(:third_task)
 
      FactoryBot.create(:user)
+
+    visit session_path
+    fill_in 'email', with: 'test@test.com'
+    fill_in 'password', with: 'password'
+    click_button 'ログイン'
   end
 
   scenario "タスク一覧のテスト" do
