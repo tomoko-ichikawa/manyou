@@ -2,6 +2,7 @@
 <p><%= notice %></p>
 
 <%= link_to "終了期日でソートする", tasks_path(sort_expired: "true") %>
+<%= link_to "優先度でソートする", tasks_path(sort_priority: "true") %>
 
 <%= form_with( model:Task.new, method: :get, local: true ) do |f| %>
   <%= f.label :task_name_key, t('views.search_task_name') %>
@@ -43,5 +44,5 @@
     <% end %>
   </table>
 </div>
-
+<%= paginate @tasks %>
 <%= link_to '新しいtaskを投稿する',new_task_path %>
