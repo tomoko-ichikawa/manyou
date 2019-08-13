@@ -16,6 +16,11 @@ RSpec.feature "ユーザーテスト機能", type: :feature do
     click_button 'ログイン'
   end
 
+  scenario "ユーザー一覧のテスト" do
+    visit admin_users_path
+    expect(page).to have_content 'DIC'
+  end
+
   scenario "ユーザー作成のテスト" do
     visit admin_users_path
 
@@ -27,6 +32,30 @@ RSpec.feature "ユーザーテスト機能", type: :feature do
     fill_in 'password confirmation',with:'user'
 
     expect(page).to have_content 'User'
+  end
+
+  scenario "ユーザー詳細のテスト" do
+    visit admin_users_path
+    click_on '詳細'
+    expect(page).to have_content 'DIC'
+  end
+
+  scenario "ユーザー更新のテスト" do
+    visit admin_users_path
+    click_on '編集'
+    fill_in 'Name',with:'Admin'
+    fill_in 'Email',with:'admin@user.com'
+    fill_in 'Password',with:'admin'
+    fill_in 'Password confirmation',with:'admin'
+    click_on '更新する'
+    expect(page).to have_content 'Admin'
+  end
+
+  scenario "ユーザー削除のテスト" do
+    visit admin_users_path
+    click_on '削除'
+    save_and_open_page
+    expect(page).not_to have_content 'DIC'
   end
 
 end

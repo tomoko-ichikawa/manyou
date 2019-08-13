@@ -1,5 +1,17 @@
-<h1><%= @user.user_name %>のページ</h1>
+<h1>各ユーザー詳細</h1>
 
-<p>メールアドレス: <%= @user.email %></p>
+  <h2>id: <%= @user.id %></h2>
+  <h2>名前: <%= @user.user_name %></h2>
+  <h2>email: <%= @user.email %></h2>
+  <h2>管理者: <%= @user.admin? ? '管理者ユーザ' : '一般ユーザ' %></h2>
 
-<%= link_to 'task一覧画面にもどる',tasks_path %>
+  <% if @user.tasks.present? %>
+    <% @user.tasks.each do |task| %>
+      <p>id: <%= task.id %></p>
+      <p>タスク名　: <%= task.task_name %></p>
+      <p>詳細　: <%= task.content %></p>
+      <p>状態　: <%= task.status %></p>
+      <p>優先順位: <%= task.priority %></p>
+      <p>期限: <%= task.deadline %></p>
+    <% end %>
+  <% end %>
