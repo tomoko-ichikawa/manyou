@@ -37,6 +37,9 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク詳細のテスト" do
+    visit tasks_path
+    expect(page).to have_content 'Factoryで作ったデフォルトのタイトル１'
+    expect(page).to have_content 'Factoryで作ったデフォルトのコンテント１'
   end
 
   scenario "タスクが作成日時の降順に並んでいるかのテスト" do
