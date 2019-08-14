@@ -1,64 +1,54 @@
 class Admin::UsersController < ApplicationController
-  skip_before_action :login_required
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user,only:[:show,:edit,:update,:destroy]
 
-    def index
-      if current_user.admin?
-        @users = User.select(
-          :id, :user_name, :email, :admin, :created_at, :updated_at)
-      else
-        redirect_to root_path
-      end
+  def index
+    @users=User.all.includes(:tasks)
+    @users= @users.page(params[:page]).per(10)
+  end
+
+  def show
+  end
+
+  def new
+    @user=User.new
+  end
+
+  def create
+    @user=User.new(user_params)
+
+    if @user.save
+      redirect_to admin_users_path, notice: "ユーザーを登録しました！"
+    else
+      render 'admin/users/new'
     end
+  end
 
-    def show
+  def edit
+  end
+
+  def update
+    @user.update!(user_params)
+    redirect_to admin_users_path, notice: "ユーザー情報を更新しました！"
+  end
+
+  def destroy
+    if User.where(admin: true).count > 1
+      @user.destroy
+      redirect_to admin_users_path
+    else
+      flash[:notice] = "最低1人は管理者ユーザが必要です！"
+      redirect_to admin_users_path
     end
+  end
 
-    def new
-      @user = User.new
-    end
+  private
 
-    def create
-      @user = User.new(user_params)
-      if @user.save
-        session[:user_id] = @user.id unless current_user
-        redirect_to admin_user_path(@user),
-                    notice: "ユーザー「#{@user.user_name}」を登録しました。"
-      else
-        render :new
-      end
-    end
+  def user_params
+    params.require(:user).permit(:user_name,:email,:admin,:password,:password_confirmation)
+  end
 
-    def edit
-    end
+  def set_user
+    @user=User.find(params[:id])
+  end
 
-    def update
-      if @user.update(user_params)
-        redirect_to admin_users_path(@user),
-                    notice: "ユーザー「#{@user.user_name}」を更新しました。"
-      else
-        render :new
-      end
-    end
-
-    def destroy
-      if current_user.admin?
-        @user.destroy
-        redirect_to admin_users_url,
-                    notice: "ユーザー「#{@user.user_name}」を削除しました。"
-      else
-        redirect_to root_path
-      end
-    end
-
-    private
-
-    def user_params
-      params.require(:user).permit(
-        :user_name, :email, :password, :password_confirmation, :admin)
-    end
-
-    def set_user
-      @user = User.find(params[:id])
-    end
 end

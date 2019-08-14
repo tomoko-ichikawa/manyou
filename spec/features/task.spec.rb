@@ -12,7 +12,7 @@ RSpec.feature "タスク管理機能", type: :feature do
     visit new_session_path
     fill_in 'Email', with: 'test@test.com'
     fill_in 'Password', with: 'password'
-    click_button 'Log in'
+    click_button 'ログイン'
   end
 
   scenario "タスク一覧のテスト" do
