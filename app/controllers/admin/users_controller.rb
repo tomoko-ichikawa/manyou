@@ -7,7 +7,7 @@ class Admin::UsersController < ApplicationController
       @users=User.all.includes(:tasks)
       @users= @users.page(params[:page]).per(10)
     else
-      redirect_to tasks_path,
+      redirect_to root_path,
                   notice: "管理者権限がありません"
     end
   end
