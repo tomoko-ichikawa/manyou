@@ -4,8 +4,8 @@ class Admin::UsersController < ApplicationController
 
   def index
     if current_user.admin?
-      @users = User.select(
-        :id, :user_name, :email, :admin, :created_at, :updated_at)
+      @users=User.all.includes(:tasks)
+      @users= @users.page(params[:page]).per(10)
     else
       redirect_to tasks_path,
                   notice: "管理者権限がありません"
