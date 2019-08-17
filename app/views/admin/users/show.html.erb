@@ -1,5 +1,40 @@
-<h1><%= @user.user_name %>のページ</h1>
+<% if (@user.id == current_user.id) || (current_user.admin?) %>
+  <h2><%= 'ユーザー名' %>：<%= @user.user_name %></h2>
+  <p><%= 'email' %>：<%= @user.email %></p>
+  <p><%= '管理権限' %>：<%= @user.admin? ? "あり" : "なし" %></p>
+  <%= link_to '編集', edit_admin_user_path(@user) %>
+  <%= link_to '削除', [:admin, @user], method: :delete, data: {confirm: I18n.t('confirm')} %>
+  <%= link_to '一覧', tasks_path %>
+<% else %>
+  <p>権限がありません</p>
+<% end %>
 
-<p>メールアドレス: <%= @user.email %></p>
 
-<%= link_to 'task一覧画面にもどる',tasks_path %>
+<% if current_user.admin? %>
+  <div class="table">
+    <table>
+      <tr>
+        <th><%= t('task_name') %></th>
+        <th><%= t('content') %></th>
+        <th><%= t('created_at') %></th>
+        <th><%= t('deadline') %></th>
+        <th><%= t('status') %></th>
+        <th><%= t('priority') %></th>
+      </tr>
+
+      <% @user.tasks.each do |task| %>
+        <tr>
+          <td><%= task.task_name %></td>
+          <td><%= task.content %></td>
+          <td><%= task.created_at %></td>
+          <td><%= task.deadline %></td>
+          <td><%= task.status %></td>
+          <th><%= task.priority_i18n %></th>
+          <td><%= link_to t('to_note'), task_path(task.id) %></td>
+          <td><%= link_to t('edit'), edit_task_path(task.id) %></td>
+          <td><%= link_to t('destroy'), task_path(task.id), method: :delete, data: {confirm: I18n.t('confirm')} %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>

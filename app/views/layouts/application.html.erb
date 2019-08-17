@@ -7,6 +7,7 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
@@ -15,10 +16,10 @@
     <% end %>
 
     <% if logged_in? %>
-      <button type="button" class="btn btn-default"><%= link_to "ユーザー詳細", admin_user_path(current_user.id) %></button>
+      <button type="button" class="btn btn-default"><%= link_to "ユーザー詳細", user_path(current_user.id) %></button>
       <button type="button" class="btn btn-default"><%= link_to "ログアウト", session_path(current_user.id), method: :delete %></button>
     <% else %>
-      <button type="button" class="btn btn-default"><%= link_to "新規ユーザー登録", new_admin_user_path %></button>
+      <button type="button" class="btn btn-default"><%= link_to "新規ユーザー登録", new_user_path %></button>
       <button type="button" class="btn btn-default"><%= link_to "ログイン", new_session_path %></button>
     <% end %>
 
