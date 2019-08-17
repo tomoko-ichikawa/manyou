@@ -33,8 +33,12 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    @user.update!(user_params)
-    redirect_to admin_users_path, notice: "ユーザー情報を更新しました！"
+    if @user.update(user_params)
+      redirect_to admin_users_path(@user),
+                  notice: "ユーザー「#{@user.user_name}」を更新しました。"
+    else
+      render :new
+    end
   end
 
   def destroy
