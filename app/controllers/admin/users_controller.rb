@@ -1,9 +1,15 @@
 class Admin::UsersController < ApplicationController
   before_action :set_user,only:[:show,:edit,:update,:destroy]
+  before_action :destroy_myself, only: [:destroy]
 
   def index
-    @users=User.all.includes(:tasks)
-    @users= @users.page(params[:page]).per(10)
+    if current_user.admin?
+      @users = User.select(
+        :id, :user_name, :email, :admin, :created_at, :updated_at)
+    else
+      redirect_to tasks_path,
+                  notice: "管理者権限がありません"
+    end
   end
 
   def show
@@ -32,13 +38,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    if User.where(admin: true).count > 1
-      @user.destroy
-      redirect_to admin_users_path
-    else
-      flash[:notice] = "最低1人は管理者ユーザが必要です！"
-      redirect_to admin_users_path
-    end
+    @user.destroy
+    redirect_to admin_users_url,
+    notice: "ユーザー「#{@user.user_name}」を削除しました。"
   end
 
   private
@@ -51,4 +53,10 @@ class Admin::UsersController < ApplicationController
     @user=User.find(params[:id])
   end
 
+  def destroy_myself
+    if @user == current_user
+      redirect_to admin_users_url,
+                  notice: "自分自身を削除することは出来ません。"
+    end
+  end
 end
