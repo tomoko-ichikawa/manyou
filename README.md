@@ -1,5 +1,5 @@
 # テーブル
-## userテーブル<br>
+## Userテーブル<br>
 |Column|Type|
 |:---|:---|
 |id||
