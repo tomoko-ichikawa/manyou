@@ -64,6 +64,11 @@ RSpec.feature "タスク管理機能", type: :feature do
     expect(page).to have_content 'タイトル２'
   end
 
+  scenario "優先度が登録できるか" do
+    visit tasks_path
+    expect(page).to have_content '高'
+  end
+
   scenario "優先度順にソートできているか" do
     login_as_yohei
     visit tasks_path
