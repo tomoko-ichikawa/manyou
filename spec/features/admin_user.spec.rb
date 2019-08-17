@@ -3,70 +3,80 @@ require 'rails_helper'
 RSpec.feature "ユーザーテスト機能", type: :feature do
 
   background do
-  # あらかじめタスク一覧のテストで使用するためのユーザーを作成する
-  user = FactoryBot.create(:user)
+    @user_1 = FactoryBot.create(:user)
+    @user_2 = FactoryBot.create(:admin_user)
   end
 
-  before do
-  #ログイン画面から、まずはログイン
+  def login_as_yohei
     visit new_session_path
+    fill_in "session[email]", with: @user_2.email
+    fill_in "session[password]", with: "password"
+    find("#login").click
+  end
 
-    click_link 'ログイン'
-    fill_in 'session[email]', with: 'test@test.com'
-    fill_in 'session[password]', with: 'password'
+  scenario "マイページが正しく動作する" do
+    login_as_yohei
+    visit user_path(id: @user_2.id)
 
+    expect(page).to have_content "洋平さん"
+    expect(page).not_to have_content "市川"
   end
 
   scenario "ユーザー一覧のテスト" do
-    visit admin_users_path
+    login_as_yohei
+    visit user_path(id: @user_2.id)
 
-    expect(page).to have_content 'test@test.com'
+    expect(page).to have_content '洋平さん'
   end
 
   scenario "ユーザー作成のテスト" do
-    visit admin_users_path
+    login_as_yohei
+    visit new_admin_user_path(id: @user_2.id)
 
-    click_link '登録'
+    fill_in "user[user_name]", with: "ユーザー作成テスト"
+    fill_in "user[email]", with: "create_user_test@example.com"
+    check "user[admin]"
+    fill_in "user[password]" ,with: "password"
+    fill_in "user[password_confirmation]" ,with: "password"
 
-    fill_in 'user_user_name',with:'User'
-    fill_in 'user_email',with:'user@user.com'
-    fill_in 'user_password',with:'user'
-    fill_in 'user_password_confirmation',with:'user'
+    click_on "登録"
 
-    expect(page).to have_content 'User'
+    expect(page).to have_content 'ユーザー作成テスト'
   end
 
   scenario "ユーザー詳細のテスト" do
-    visit admin_users_path
+    login_as_yohei
+    visit user_path(id: @user_2.id)
 
     click_link '詳細'
 
-    expect(page).to have_content 'DIC'
+    expect(page).to have_content '洋平さん'
   end
 
-  scenario "ユーザー更新のテスト" do
-    visit admin_users_path
+  scenario "ユーザー編集のテスト" do
+    login_as_yohei
+    visit edit_admin_user_path(id: @user_2.id)
 
-    click_on '編集'
+    fill_in "user[user_name]", with: "ユーザー編集テスト"
+    fill_in "user[email]", with: "create_user_test@example.com"
+    check "user[admin]"
+    fill_in "user[password]" ,with: "password"
+    fill_in "user[password_confirmation]" ,with: "password"
 
-    fill_in 'Name',with:'Admin'
-    fill_in 'Email',with:'admin@user.com'
-    fill_in 'Password',with:'admin'
-    fill_in 'Password_confirmation',with:'admin'
+    click_on "登録"
 
-    click_on '更新'
-
-    expect(page).to have_content 'Admin'
+    expect(page).to have_content 'ユーザー編集テスト'
   end
 
   scenario "ユーザー削除のテスト" do
-    visit admin_users_path
+    login_as_yohei
+    visit admin_user_path(id: @user_2.id)
 
-    click_on '削除'
+    click_on "削除"
 
     save_and_open_page
 
-    expect(page).not_to have_content 'DIC'
+    expect(page).to have_selector 'a[data-method=delete]', text: '削除'
   end
 
 end
