@@ -9,7 +9,7 @@ class Admin::UsersController < ApplicationController
     else
       # render file: 'public/404', status: 404, formats: [:html]
       # ActiveRecord::RecordNotFound
-      render_404
+      raise ActionController::RoutingError.new("routing error")
     end
   end
 
@@ -17,7 +17,7 @@ class Admin::UsersController < ApplicationController
     if current_user.admin?
       @user=User.find(params[:id])
     else
-      render_404
+      raise ActionController::RoutingError.new("routing error")
     end
   end
 
@@ -25,7 +25,7 @@ class Admin::UsersController < ApplicationController
     if current_user.admin?
       @user=User.new
     else
-      render_404
+      raise ActionController::RoutingError.new("routing error")
     end
   end
 
@@ -38,7 +38,7 @@ class Admin::UsersController < ApplicationController
         render 'admin/users/new'
       end
     else
-      render_404
+      raise ActionController::RoutingError.new("routing error")
     end
   end
 
@@ -46,7 +46,7 @@ class Admin::UsersController < ApplicationController
     if current_user.admin?
       @user=User.find(params[:id])
     else
-      render_404
+      raise ActionController::RoutingError.new("routing error")
     end
   end
 
@@ -66,7 +66,7 @@ class Admin::UsersController < ApplicationController
       redirect_to admin_users_url,
       notice: "ユーザー「#{@user.user_name}」を削除しました。"
     else
-      render_404
+      raise ActionController::RoutingError.new("routing error")
     end
   end
 
