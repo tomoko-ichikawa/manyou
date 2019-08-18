@@ -1,10 +1,9 @@
 <h1><%= t('views.task') %></h1>
 <p><%= notice %></p>
-<button type="button" class="btn btn-default"><%= link_to '新しいtaskを作成する',new_task_path %></button><br><br>
-
-<%= link_to "終了期日でソートする", tasks_path(sort_expired: "true") %><br>
-<%= link_to "優先度でソートする", tasks_path(sort_priority: "true") %><br>
-
+<button type="button" class="btn btn-default"><%= link_to '新しいtaskを作成する',new_task_path %></button>
+<button type="button" class="btn btn-default"><%= link_to "終了期日でソートする", tasks_path(sort_expired: "true") %></button>
+<button type="button" class="btn btn-default"><%= link_to "優先度でソートする", tasks_path(sort_priority: "true") %></button><br>
+<br>
 <%= form_with( model:Task.new, method: :get, local: true ) do |f| %>
   <%= f.label :task_name_key, t('views.search_task_name') %>
   <%= f.text_field :task_name_key %>
