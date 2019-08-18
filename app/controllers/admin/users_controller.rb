@@ -7,7 +7,9 @@ class Admin::UsersController < ApplicationController
       @users = User.all.includes(:tasks)
       @users = @users.page(params[:page]).per(10)
     else
-      render file: 'public/404', status: 404, formats: [:html]
+      # render file: 'public/404', status: 404, formats: [:html]
+      # ActiveRecord::RecordNotFound
+      render_404
     end
   end
 
@@ -15,7 +17,7 @@ class Admin::UsersController < ApplicationController
     if current_user.admin?
       @user=User.find(params[:id])
     else
-      render file: 'public/404', status: 404, formats: [:html]
+      render_404
     end
   end
 
@@ -23,7 +25,7 @@ class Admin::UsersController < ApplicationController
     if current_user.admin?
       @user=User.new
     else
-      render file: 'public/404', status: 404, formats: [:html]
+      render_404
     end
   end
 
@@ -36,7 +38,7 @@ class Admin::UsersController < ApplicationController
         render 'admin/users/new'
       end
     else
-      render file: 'public/404', status: 404, formats: [:html]
+      render_404
     end
   end
 
@@ -44,7 +46,7 @@ class Admin::UsersController < ApplicationController
     if current_user.admin?
       @user=User.find(params[:id])
     else
-      render file: 'public/404', status: 404, formats: [:html]
+      render_404
     end
   end
 
@@ -64,7 +66,7 @@ class Admin::UsersController < ApplicationController
       redirect_to admin_users_url,
       notice: "ユーザー「#{@user.user_name}」を削除しました。"
     else
-      render file: 'public/404', status: 404, formats: [:html]
+      render_404
     end
   end
 
