@@ -4,10 +4,10 @@ class Admin::UsersController < ApplicationController
 
   def index
     if current_user.admin?
-      @users=User.all.includes(:tasks)
-      @users= @users.page(params[:page]).per(10)
+      @users = User.all.includes(:tasks)
+      @users = @users.page(params[:page]).per(10)
     else
-      
+      render file: 'public/404', status: 404, formats: [:html]
     end
   end
 
