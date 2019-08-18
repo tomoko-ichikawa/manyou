@@ -12,23 +12,40 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
+    if current_user.admin?
+      @user=User.find(params[:id])
+    else
+      render file: 'public/404', status: 404, formats: [:html]
+    end
   end
 
   def new
-    @user=User.new
+    if current_user.admin?
+      @user=User.new
+    else
+      render file: 'public/404', status: 404, formats: [:html]
+    end
   end
 
   def create
-    @user=User.new(user_params)
-
-    if @user.save
-      redirect_to admin_users_path, notice: "ユーザーを登録しました！"
+    if current_user.admin?
+      @user=User.new(user_params)
+      if @user.save
+        redirect_to admin_users_path, notice: "ユーザーを登録しました！"
+      else
+        render 'admin/users/new'
+      end
     else
-      render 'admin/users/new'
+      render file: 'public/404', status: 404, formats: [:html]
     end
   end
 
   def edit
+    if current_user.admin?
+      @user=User.find(params[:id])
+    else
+      render file: 'public/404', status: 404, formats: [:html]
+    end
   end
 
   def update
@@ -41,9 +58,14 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    redirect_to admin_users_url,
-    notice: "ユーザー「#{@user.user_name}」を削除しました。"
+    if current_user.admin?
+      @user=User.find(params[:id])
+      @user.destroy
+      redirect_to admin_users_url,
+      notice: "ユーザー「#{@user.user_name}」を削除しました。"
+    else
+      render file: 'public/404', status: 404, formats: [:html]
+    end
   end
 
   private
