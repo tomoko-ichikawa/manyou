@@ -11,6 +11,12 @@ class TasksController < ApplicationController
       elsif params[:task][:search]
         @tasks = current_user.tasks.search(params)
       end
+
+      if params[:label_id].present?
+        @tags = Tag.where(label_id: params[:label_id]).pluck(:task_id)
+        @tasks = @tasks.where(id: @tags)
+      end
+
     @tasks = @tasks.page(params[:page]).per(7)
   end
 
@@ -25,6 +31,8 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.user_id = current_user.id
+    label_ids = params[:task][:label_ids]
+
     if @task.save
       redirect_to tasks_path, notice: "taskを作成しました"
     else
@@ -63,7 +71,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:task_name,:deadline,:priority,:status,:content)
+    params.require(:task).permit(:task_name,:deadline,:priority,:status,:content,label_ids:[])
   end
 
   def set_task

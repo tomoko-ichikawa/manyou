@@ -10,4 +10,7 @@ class Task < ApplicationRecord
   enum priority: { 高: 0, 中: 1, 低: 2 }
 
   belongs_to :user
+  has_many :labels, through: :tags
+  has_many :tags, dependent: :destroy
+  accepts_nested_attributes_for :labels
 end
