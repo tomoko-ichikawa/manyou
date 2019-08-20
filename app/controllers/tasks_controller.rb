@@ -41,15 +41,12 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
   end
 
   def edit
-    @task = Task.find(params[:id])
   end
 
   def update
-    @task = Task.find(params[:id])
     if @task.update(task_params)
       redirect_to tasks_path,notice:"taskを編集しました"
     else
@@ -71,7 +68,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:task_name,:deadline,:priority,:status,:content,label_ids:[])
+    params.require(:task).permit(:task_name, :deadline, :priority, :status, :content, label_ids:[])
   end
 
   def set_task
