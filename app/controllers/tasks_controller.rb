@@ -23,6 +23,7 @@ class TasksController < ApplicationController
   def new
     if params[:back]
       @task = Task.new(task_params)
+      label_ids = params[:task][:label_ids]
     else
       @task = Task.new
     end
