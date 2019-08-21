@@ -5,7 +5,9 @@
 <p>deadline:<%= @task.deadline.strftime("%Y-%m-%d %H:%M") %></p>
 <p>status:<%= @task.status %></p>
 <p>priority:<%= @task.priority_i18n %></p>
-<p>label:<%= @task.label_ids %></p>
+<% @task.labels.each do |label| %>
+  <p>label：<%= label.label_name %></p>
+<% end %>
 
 <br>
 <button type="button" class="btn btn-default"><%= link_to 'task一覧画面にもどる',tasks_path %></button>
