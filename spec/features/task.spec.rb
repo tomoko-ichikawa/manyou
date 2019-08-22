@@ -75,17 +75,7 @@ RSpec.feature "タスク管理機能", type: :feature do
   scenario "優先度順にソートできているか" do
     login_as_yohei
     visit tasks_path
-    click_on '優先度でソートする'
+    click_on 'commit'
     expect(Task.order("priority ASC").map(&:id))
- end
-
- scenario "タスクにラベルを付けられるか" do
-    login_as_yohei
-    visit new_task_path
-    fill_in 'task[task_name]', with: 'Factoryで作ったデフォルトのタイトル１'
-    fill_in 'task[content]', with: 'Factoryで作ったデフォルトのコンテント１'
-    check "task[label_ids][]"
-    expect(page).to have_content 'Factoryで作ったデフォルトのタイトル１'
-    expect(page).to have_content 'Factoryで作ったデフォルトのコンテント１'
  end
 end
