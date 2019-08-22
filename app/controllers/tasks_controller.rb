@@ -12,11 +12,10 @@ class TasksController < ApplicationController
         @tasks = current_user.tasks.search(params)
       end
 
-      if params[:label_id].present?
-        @tags = Tag.where(label_id: params[:label_id]).pluck(:task_id)
+      if params[:task][:label_id].present?
+        @tags = Tag.where(label_id: params[:task][:label_id]).pluck(:task_id)
         @tasks = @tasks.where(id: @tags)
       end
-
     @tasks = @tasks.page(params[:page]).per(7)
   end
 
