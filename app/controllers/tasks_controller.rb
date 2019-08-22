@@ -2,20 +2,20 @@ class TasksController < ApplicationController
   before_action :set_task, only:[:show, :edit, :update, :destroy]
 
   def index
-      if params[:sort_priority]
-        @tasks = current_user.tasks.important
-      elsif params[:sort_expired]
-         @tasks = current_user.tasks.expired
-      elsif params[:task] == nil
-        @tasks = current_user.tasks.latest
-      elsif params[:task][:search]
-        @tasks = current_user.tasks.search(params)
-      end
-
+    if params[:sort_priority]
+      @tasks = current_user.tasks.important
+    elsif params[:sort_expired]
+      @tasks = current_user.tasks.expired
+    elsif params[:task] == nil
+      @tasks = current_user.tasks.latest
+    elsif params[:task][:search]
+      @tasks = current_user.tasks.search(params)
       if params[:task][:label_id].present?
         @tags = Tag.where(label_id: params[:task][:label_id]).pluck(:task_id)
         @tasks = @tasks.where(id: @tags)
       end
+    end
+
     @tasks = @tasks.page(params[:page]).per(7)
   end
 

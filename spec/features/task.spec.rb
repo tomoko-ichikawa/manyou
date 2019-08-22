@@ -10,6 +10,8 @@ RSpec.feature "タスク管理機能", type: :feature do
     FactoryBot.create(:task, user: @user_2)
     FactoryBot.create(:second_task, user: @user_2)
     FactoryBot.create(:third_task, user: @user_2)
+
+    FactoryBot.create(:label)
   end
 
   def login_as_yohei
@@ -75,5 +77,15 @@ RSpec.feature "タスク管理機能", type: :feature do
     visit tasks_path
     click_on '優先度でソートする'
     expect(Task.order("priority ASC").map(&:id))
+ end
+
+ scenario "タスクにラベルを付けられるか" do
+    login_as_yohei
+    visit new_task_path
+    fill_in 'task[task_name]', with: 'Factoryで作ったデフォルトのタイトル１'
+    fill_in 'task[content]', with: 'Factoryで作ったデフォルトのコンテント１'
+    check "task[label_ids][]"
+    expect(page).to have_content 'Factoryで作ったデフォルトのタイトル１'
+    expect(page).to have_content 'Factoryで作ったデフォルトのコンテント１'
  end
 end
