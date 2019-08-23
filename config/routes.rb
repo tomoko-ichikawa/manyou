@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'labels/create'
+  get 'labels/destroy'
   resources :tasks do
     collection do
       post :confirm
@@ -8,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :users, only:[:new,:create,:show]
   resources :sessions, only: [:new, :create, :destroy]
+  resources :labels, only:[:create,:destroy]
 
   namespace :admin do
     resources :users

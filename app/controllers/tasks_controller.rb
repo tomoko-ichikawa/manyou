@@ -2,21 +2,27 @@ class TasksController < ApplicationController
   before_action :set_task, only:[:show, :edit, :update, :destroy]
 
   def index
-      if params[:sort_priority]
-        @tasks = current_user.tasks.important
-      elsif params[:sort_expired]
-         @tasks = current_user.tasks.expired
-      elsif params[:task] == nil
-        @tasks = current_user.tasks.latest
-      elsif params[:task][:search]
-        @tasks = current_user.tasks.search(params)
+    if params[:sort_priority]
+      @tasks = current_user.tasks.important
+    elsif params[:sort_expired]
+      @tasks = current_user.tasks.expired
+    elsif params[:task] == nil
+      @tasks = current_user.tasks.latest
+    elsif params[:task][:search]
+      @tasks = current_user.tasks.search(params)
+      if params[:task][:label_id].present?
+        @tags = Tag.where(label_id: params[:task][:label_id]).pluck(:task_id)
+        @tasks = @tasks.where(id: @tags)
       end
+    end
+
     @tasks = @tasks.page(params[:page]).per(7)
   end
 
   def new
     if params[:back]
       @task = Task.new(task_params)
+      label_ids = params[:task][:label_ids]
     else
       @task = Task.new
     end
@@ -25,6 +31,8 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.user_id = current_user.id
+    label_ids = params[:task][:label_ids]
+
     if @task.save
       redirect_to tasks_path, notice: "taskを作成しました"
     else
@@ -33,15 +41,12 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
   end
 
   def edit
-    @task = Task.find(params[:id])
   end
 
   def update
-    @task = Task.find(params[:id])
     if @task.update(task_params)
       redirect_to tasks_path,notice:"taskを編集しました"
     else
@@ -63,7 +68,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:task_name,:deadline,:priority,:status,:content)
+    params.require(:task).permit(:task_name, :deadline, :priority, :status, :content, label_ids:[])
   end
 
   def set_task

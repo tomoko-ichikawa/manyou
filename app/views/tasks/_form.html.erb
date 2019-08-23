@@ -13,25 +13,27 @@
 
   <div class="task_content">
     <%= form.label :task_name %>
-    <%= form.text_field :task_name %>
+    <%= form.text_field :task_name %><br>
+    <%= form.label :content %>
+    <%= form.text_field :content %><br>
     <%= form.label :deadline %>
-    <%= form.date_field :deadline %>
-    <span class="input-group-addon">
-      <span class="fa fa-calendar"></span>
-    </span>
+    <%= form.date_field :deadline %><br>
     <%= form.label :priority %>
-    <%= form.select :priority, Task.priorities_i18n.invert, {} %>
+    <%= form.select :priority, Task.priorities_i18n.invert, {} %><br>
     <%= form.label :status %>
     <%= form.select :status, [[t('views.done'),t('views.done')],
                               [t('views.not_started'), t('views.not_started')],
                               [t('views.in_progress'),t('views.in_progress')],
                               [t('views.hold'), t('views.hold')]]
-    %>
-    <%= form.label :content %>
-    <%= form.text_field :content %>
-    <br>
+    %><br>
+
+      <% Label.all.each do |label| %>
+          <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
+          <label><%= label.label_name %></label>
+      <% end %><br><br>
+
     <%= form.submit %>
   </div>
 <% end %>
-
-<%= link_to 'task一覧画面にもどる',tasks_path %>
+<br>
+<button type="button" class="btn btn-default"><%= link_to 'task一覧画面にもどる',tasks_path %></button>

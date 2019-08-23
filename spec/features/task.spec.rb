@@ -10,6 +10,8 @@ RSpec.feature "タスク管理機能", type: :feature do
     FactoryBot.create(:task, user: @user_2)
     FactoryBot.create(:second_task, user: @user_2)
     FactoryBot.create(:third_task, user: @user_2)
+
+    FactoryBot.create(:label)
   end
 
   def login_as_yohei
@@ -73,7 +75,7 @@ RSpec.feature "タスク管理機能", type: :feature do
   scenario "優先度順にソートできているか" do
     login_as_yohei
     visit tasks_path
-    click_on '優先度でソートする'
+    click_on 'commit'
     expect(Task.order("priority ASC").map(&:id))
  end
 end
