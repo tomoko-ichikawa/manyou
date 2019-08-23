@@ -6,11 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+=begin
 User.create!(user_name: "admin",
             email: "admin@admin.com",
             password: "password",
             password_confirmation: "password" ,
             admin: true)
+=end
 
 Label.create!(label_name: 'ラベル１')
 Label.create!(label_name: 'ラベル２')
