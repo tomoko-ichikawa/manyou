@@ -2,7 +2,6 @@ class TasksController < ApplicationController
   before_action :set_task, only:[:show, :edit, :update, :destroy]
 
   def index
-    flash.now[:notice] = "本日は#{Time.now}です。"
 
     @expired_tasks = Task.expired.where(user_id: current_user.id)
 
