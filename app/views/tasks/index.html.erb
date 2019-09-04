@@ -1,5 +1,12 @@
 <h1><%= t('views.task') %></h1>
-<p><%= notice %></p>
+<p><%= notice %></p><br>
+<% if notice %>
+  <div class="alert alert-info" role="alert">
+    <%= notice %>
+  </div>
+<% end %>
+<%= render partial: 'expered_alert', locals: { expired_tasks: @expired_tasks } if @expired_tasks.present? %>
+
 <button type="button" class="btn btn-default"><%= link_to '新しいtaskを作成する', new_task_path %></button>
 <button type="button" class="btn btn-default"><%= link_to "終了期日でソートする", tasks_path(sort_expired: "true") %></button>
 <button type="button" class="btn btn-default"><%= link_to "優先度でソートする", tasks_path(sort_priority: "true") %></button><br>
