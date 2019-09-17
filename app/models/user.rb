@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   before_destroy :do_not_destroy_last_admin
   has_many :tasks, dependent: :destroy
+  has_many :favorites
+  has_many :groups, through: :favorites
 
   def do_not_destroy_last_admin
     if self.admin? && User.where(admin: :true).count == 1
