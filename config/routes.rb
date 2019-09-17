@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'favorites/create'
+  get 'favorites/destroy'
   get 'labels/create'
   get 'labels/destroy'
   resources :tasks do
