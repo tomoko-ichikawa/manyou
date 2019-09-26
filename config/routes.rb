@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :labels, only:[:create,:destroy]
 
   resources :groups
+  resources :favorites, only:[:create, :destroy]
 
   namespace :admin do
     resources :users
