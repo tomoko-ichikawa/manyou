@@ -17,7 +17,7 @@
 		<td>
 			<% @favorite_groups.each do |f| %>
 				<%= f.id %>
-				<%= link_to f.group_name, group_path(f) %>
+				<%= link_to f.group_name, group_path(f) %><br>
 			<% end %>
 	    </td>
     </tr>

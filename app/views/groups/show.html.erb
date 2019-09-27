@@ -38,8 +38,8 @@
         <%= label :group, :入会ユーザー %>
       </td>
       <td>
-        <% @favorite_users.each do |f| %>
-    		<%= link_to f.user_name, user_path(f) %>
+		<% @favorite_users.each do |f| %>
+    		<%= link_to f.user_name, user_path(f) %><br>
     	<% end %>
       </td>
    </tr>
