@@ -1,11 +1,13 @@
 class FavoritesController < ApplicationController
   def create
-  	@group = Group.find(params[:group_id])
-  	@group.admission(current_user)
+  	favorite = current_user.favorites.build(group_id: params[:group_id])
+  	favorite.save
+  	redirect_to groups_path
   end
 
   def destroy
-  	@group = Favorite.find(params[:id]).group
-  	@group.withdrawal(current_user)
+  	favorite = Favorite.find_by(group_id: params[:group_id], user_id: current_user.id)
+  	favorite.destroy
+  	redirect_to groups_path
   end
 end
