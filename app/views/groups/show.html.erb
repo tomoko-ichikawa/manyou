@@ -7,35 +7,48 @@
   <%= 'グループ詳細' %>
 </h1>
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <%= label :group, 'information' %>
-  </div>
+
   <table class="table">
     <tr>
       <td>
-        <%= label :group, :group_name %>
+        <%= label :group, :グループ名 %>
       </td>
       <td>
         <%= @group.group_name %>
       </td>
     </tr>
-    <tr>
+    <tr>
       <td>
-        <%= label :group, :updated_at %>
-      </td>
-      <td>
-        <%= @group.updated_at %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= label :group, :created_at %>
+        <%= label :group, :グループ作成日 %>
       </td>
       <td>
         <%= @group.created_at %>
       </td>
     </tr>
+    <tr>
+      <td>
+        <%= label :group, :更新日 %>
+      </td>
+      <td>
+        <%= @group.updated_at %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= label :group, :入会ユーザー %>
+      </td>
+      <td>
+        <% @favorite_users.each do |f| %>
+    		<%= link_to f.user_name, user_path(f) %>
+    	<% end %>
+      </td>
+   </tr>
+</p>
+      </td>
+    </tr>
+    
   </table>
 </div>
-<%= link_to t('common.edit'), edit_group_path(@group), class: 'btn btn-warning' %>
-<%= link_to t('common.back'), :back, class: 'btn btn-default' %>
+<%= link_to t('編集'), edit_group_path(@group), class: 'btn btn-warning' %>
+<%= link_to t('戻る'), :back, class: 'btn btn-default' %>
+<button type="button" class="btn btn-default"><%= link_to 'グループ一覧', groups_path %></button>

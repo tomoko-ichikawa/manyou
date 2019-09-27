@@ -6,7 +6,8 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group = Group.includes(:users).find(params[:id])
+    @group = Group.find(params[:id])
+    @favorite_users = @group.favorite_users
   end
 
   def new

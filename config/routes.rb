@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources :labels, only:[:create,:destroy]
 
   resources :groups do
-    resource :favorites, only:[:create, :destroy]
+    resource :favorites, only:[:create, :destroy, :show]
   end
 
   namespace :admin do
@@ -23,5 +23,6 @@ Rails.application.routes.draw do
   end
 
   root to: 'tasks#index'
+  root to: 'favorites#index'
 
 end

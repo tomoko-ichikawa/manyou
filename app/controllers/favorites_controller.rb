@@ -10,4 +10,8 @@ class FavoritesController < ApplicationController
   	favorite.destroy
   	redirect_to groups_path
   end
+
+  def index
+     @favorites = Favorite.all
+  end
 end
