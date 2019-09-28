@@ -1,6 +1,7 @@
 class GroupsController < ApplicationController
 	  GROUP_DISPLAY_PER_PAGE = 10
     before_action :ensure_correct_user, only:[:edit, :update, :destroy]
+    before_action :favorite_user, only:[:show]
 
   def index
     @groups = Group.all.order(:id).page(params[:page]).per(GROUP_DISPLAY_PER_PAGE)
@@ -51,6 +52,17 @@ class GroupsController < ApplicationController
       redirect_to("/groups/index")
     end
   end
+
+  def favorite_user
+    @group = Group.find(params[:id])
+    @user = User.find_by(id: @group.user_id)
+    @favorite_user = @group.favorite_users
+    if @favorite_user_id != @current_user.id
+      flash[:notice] = "権限がありません"
+      redirect_to("/groups/index")
+    end
+  end
+  
 
   private
 
