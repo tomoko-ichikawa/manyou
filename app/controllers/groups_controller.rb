@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
 	  GROUP_DISPLAY_PER_PAGE = 10
+    before_action :ensure_correct_user, only:[:edit, :update, :destroy]
 
   def index
     @groups = Group.all.order(:id).page(params[:page]).per(GROUP_DISPLAY_PER_PAGE)
@@ -7,6 +8,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @user = User.find_by(id: @group.user_id)
     @favorite_users = @group.favorite_users
   end
 
@@ -19,7 +21,7 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.new(group_params)
+    @group = Group.new(group_name: group_params[:group_name], user_id: @current_user.id)  
     if @group.save
       redirect_to group_path(@group),  notice: "グループを作成しました"
     else
@@ -40,6 +42,14 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @group.destroy
     redirect_to groups_url, notice: "グループを削除しました"
+  end
+
+  def ensure_correct_user
+    @group = Group.find(params[:id])
+    if @group.user_id != @current_user.id
+      flash[:notice] = "権限がありません"
+      redirect_to("/groups/index")
+    end
   end
 
   private
