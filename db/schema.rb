@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_27_234348) do
+ActiveRecord::Schema.define(version: 2019_09_29_020738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,11 +24,9 @@ ActiveRecord::Schema.define(version: 2019_09_27_234348) do
 
   create_table "groups", force: :cascade do |t|
     t.string "group_name"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "likes_count"
-    t.integer "owner"
-    t.integer "user_id"
   end
 
   create_table "labels", force: :cascade do |t|
@@ -54,15 +52,7 @@ ActiveRecord::Schema.define(version: 2019_09_27_234348) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.index ["task_name"], name: "index_tasks_on_task_name"
     t.index ["user_id"], name: "index_tasks_on_user_id"
-  end
-
-  create_table "user_groups", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "group_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
