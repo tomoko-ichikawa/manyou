@@ -52,21 +52,27 @@ class GroupsController < ApplicationController
       redirect_to("/groups/index")
     end
   end
-
-  def favorite_user
-    @group = Group.find(params[:id])
-    @user = User.find_by(id: @group.user_id)
-    @favorite_user = @group.favorite_users
-    if @favorite_user_id != @current_user.id
-      flash[:notice] = "権限がありません"
-      redirect_to("/groups/index")
-    end
-  end
   
 
   private
 
   def group_params
     params.require(:group).permit(:group_name)
+  end
+
+  # def favorite_user
+  #   binding.pry
+  #   @group = Group.find(params[:id])
+  #   @user = User.find_by(id: @group.user_id)
+  #   @favorite_user = @group.favorite_users
+  #   if @favorite_user_id != @current_user.id
+  #     flash[:notice] = "権限がありません"
+  #     redirect_to("/groups/index")
+  #   end
+  # end
+
+  def favorite_user
+    @group = Group.find(params[:id])
+    binding.pry
   end
 end
