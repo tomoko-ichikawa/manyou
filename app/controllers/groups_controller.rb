@@ -9,7 +9,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    @user = User.find_by(id: @group.user_id)
+    @user = User.find_by(id: @group.owner_id)
     @favorite_users = @group.favorite_users
   end
 
@@ -24,7 +24,7 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(group_name: group_params[:group_name], owner_id: current_user.id)  
     if @group.save
-      
+      current_user.favorites.create(group_id: group_params[:group_id], owner_id: current_user)
       redirect_to group_path(@group),  notice: "グループを作成しました"
     else
       render :new
@@ -56,13 +56,12 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     if @group.owner_id != current_user.id
       flash[:info] = "権限がありません"
-      redirect_to("/groups/index")
+      redirect_to groups_path
     end
   end
 
   def favorite_user
     @group = Group.find(params[:id])
-    # binding.pry
     unless current_user.id == @group.favorites.where(user_id: current_user.id).pluck(:user_id)[0]
       flash[:info] = "所属していないグループです。"
       redirect_to groups_path
