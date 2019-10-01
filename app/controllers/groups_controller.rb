@@ -22,9 +22,9 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.new(group_name: group_params[:group_name], owner_id: current_user.id)  
+    @group = Group.new(group_name: group_params[:group_name], owner_id: current_user.id)
     if @group.save
-      current_user.favorites.create(group_id: group_params[:group_id], owner_id: current_user)
+      current_user.favorites.create(group_id: group_params[:group_id], owner_id: true)
       redirect_to group_path(@group),  notice: "グループを作成しました"
     else
       render :new
