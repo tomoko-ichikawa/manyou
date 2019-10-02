@@ -33,11 +33,11 @@
 		     <%= link_to '削除', group_path(group), method: :delete %>        
           </td>
 		  <td>
-		  	<% if group.favorited_by?(current_user) %>
-		  		<%= link_to 'グループから脱会', group_favorites_path(group.id), method: :delete %>
-		  	<% else %>
-		  		<%= link_to 'グループへ入会', group_favorites_path(group.id), method: :post %>
-		  	<% end %>
+			  	<% if group.favorited_by?(current_user) %>
+			  		<%= link_to 'グループから脱会', group_favorites_path(group.id), method: :delete %>
+			  	<% else %>
+			  		<%= link_to 'グループへ入会', group_favorites_path(group.id), method: :post %>
+			  	<% end %>
 		  </td>
 
 
