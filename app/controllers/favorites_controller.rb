@@ -8,6 +8,7 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
+    
   	@favorite = Favorite.find_by(group_id: params[:group_id], user_id: @current_user.id)
   	@favorite.destroy
   	redirect_to groups_path
@@ -21,7 +22,7 @@ class FavoritesController < ApplicationController
 
   def not_allow_destroy
     @favorite = Favorite.find_by(group_id: params[:group_id], user_id: @current_user.id)
-    if @current_user.id == @group.owner_id
+    if @current_user.id == @favorite.owner_id
       flash[:info] = "グループ作成者は脱退できません"
       redirect_to groups_path
     end 
