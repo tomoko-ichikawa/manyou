@@ -24,6 +24,7 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_name: group_params[:group_name], owner_id: current_user.id)
+    @group.owner_id = current_user.id
     if @group.save
       @favorite = current_user.favorites.build(group_id: @group.id, user_id: current_user.id)
       @favorite.save
