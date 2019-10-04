@@ -11,6 +11,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @user = User.find_by(id: @group.owner_id)
     @favorite_users = @group.favorite_users
+    @tasks = Task.where(user_id: @favorite_users)
   end
 
   def new

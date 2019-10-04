@@ -7,7 +7,6 @@
   <%= 'グループ詳細' %>
 </h1>
 <div class="panel panel-default">
-
   <table class="table">
     <tr>
       <td>
@@ -56,12 +55,42 @@
     	<% end %>
       </td>
    </tr>
-</p>
-      </td>
-    </tr>
-    
   </table>
-</div>
+<br>
+
+<h1>
+  入会ユーザーのタスク一覧
+</h1>
+<div class="table">
+  <table class="table table-striped">
+    <tr>
+      <th><center><%= t('views.task_name') %></center></th>
+      <th><center><%= t('views.content') %></center></th>
+      <th><center><%= t('views.created_at') %></center></th>
+      <th><center><%= link_to "終了期日▼", tasks_path(sort_expired: "true") %></center></th>
+      <th><center><%= t('views.status') %></center></th>
+      <th><center><%= link_to "優先度▼", tasks_path(sort_priority: "true") %></center></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.task_name %></td>
+        <td><%= task.content %></td>
+        <td><%= task.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+        <td><%= task.deadline.strftime("%Y-%m-%d %H:%M") %></td>
+        <td><center><%= task.status %></center></td>
+        <td><center><%= task.priority_i18n %></center></td>
+        <td><%= link_to t('views.details'), task_path(task.id) %></td>
+        <td><%= link_to t('views.edit'), edit_task_path(task.id) %></td>
+        <td><%= link_to t('views.destroy'), task_path(task.id), method: :delete ,data:{confirm:I18n.t('confirm')} %></td>
+      </tr>
+    <% end %>
+  </table>
+ </div>
+
 <%= link_to t('編集'), edit_group_path(@group), class: 'btn btn-warning' %>
 <%= link_to t('戻る'), :back, class: 'btn btn-default' %>
 <button type="button" class="btn btn-default"><%= link_to 'グループ一覧', groups_path %></button>
