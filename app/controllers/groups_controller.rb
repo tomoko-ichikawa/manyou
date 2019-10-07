@@ -26,7 +26,7 @@ class GroupsController < ApplicationController
     @group = Group.new(group_name: group_params[:group_name], owner_id: current_user.id)
     @group.owner_id = current_user.id
     if @group.save
-      @favorite = current_user.favorites.build(group_id: @group.id, user_id: current_user.id)
+      @favorite = current_user.favorites.build(group_id: @group.id, user_id: current_user.id, owner_id: @group.owner_id)
       @favorite.save
       redirect_to group_path(@group),  notice: "グループを作成しました"
     else

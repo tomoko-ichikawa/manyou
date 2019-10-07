@@ -13,6 +13,7 @@
   <div class="form-group">
     <%= f.label :group_name %>
     <%= f.text_field :group_name, class: 'form-control' %>
+    <%= hidden_field_tag :owner_id, current_user.id %>
   </div>
   <div class="actions">
     <%= f.submit 'save', class: 'btn btn-primary' %>
