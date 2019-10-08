@@ -1,27 +1,30 @@
 <h1>User一覧（管理者画面）</h1>
-
 <%= link_to '新規ユーザー登録', new_admin_user_path %>
-
 <%= paginate @users %>
 
-<table>
-  <tr>
-    <th>ユーザー名 &emsp;</th>
-    <th><center>email &emsp;</center></th>
-    <th>タスク数 &emsp;</th>
-    <th>管理者権限 &emsp;</th>
-  </tr>
+<div class="table-responsive">
+  <table class="table table-hover table-striped">
+    <tr>
+      <th>ユーザー名 &emsp;</th>
+      <th><center>email &emsp;</center></th>
+      <th>タスク数 &emsp;</th>
+      <th>管理者権限 &emsp;</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
 
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.user_name %>&emsp;</td>
-    <td><%= user.email %>&emsp;</td>
-    <td><center><%= user.tasks.count %>&emsp;</center></td>
-    <td><center><%= user.admin? ? "あり":"なし" %></center></td>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.user_name %>&emsp;</td>
+        <td><%= user.email %>&emsp;</td>
+        <td><center><%= user.tasks.count %>&emsp;</center></td>
+        <td><center><%= user.admin? ? "あり":"なし" %></center></td>
 
-    <td><%= link_to '詳細',admin_user_path(user.id) %>&emsp;</td>
-    <td><%= link_to '編集',edit_admin_user_path(user.id) %>&emsp;</td>
-    <td><%= link_to '削除',admin_user_path(user.id),method: :delete,data:{confirm: '削除してよろしいですか？？'} %></td>
-  </tr>
-<% end %>
-</table>
+        <td><%= link_to '詳細',admin_user_path(user.id) %>&emsp;</td>
+        <td><%= link_to '編集',edit_admin_user_path(user.id) %>&emsp;</td>
+        <td><%= link_to '削除',admin_user_path(user.id),method: :delete,data:{confirm: '削除してよろしいですか？？'} %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

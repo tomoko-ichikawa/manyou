@@ -1,0 +1,51 @@
+<% if notice %>
+  <div class="alert alert-info" role="alert">
+    <%= notice %>
+  </div>
+<% end %>
+<h1>
+  <%= 'グループ' %>
+</h1>
+<div class="table-responsive">
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>
+          <%= Group.human_attribute_name(:id) %>
+        </th>
+        <th>
+          <%= Group.human_attribute_name(:グループ名) %>
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @groups.each do |group| %>
+        <tr>
+          <td>
+            <%= group.id %>
+          </td>
+          <td>
+            <%= group.group_name %>
+          </td>
+          <td>
+            <%= link_to '詳細', group_path(group) %>	<%= link_to '編集', edit_group_path(group) %>
+		     <%= link_to '削除', group_path(group), method: :delete %>        
+          </td>
+		  <td>
+			  	<% if group.favorited_by?(current_user) %>
+			  		<%= link_to 'グループから脱会', group_favorites_path(group.id), method: :delete %>
+			  	<% else %>
+			  		<%= link_to 'グループへ入会', group_favorites_path(group.id), method: :post %>
+			  	<% end %>
+		  </td>
+
+
+        </tr>
+		
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<button type="button" class="btn btn-default"><%= link_to 'グループ作成', new_group_path %></button>
+<%= paginate @groups %>
