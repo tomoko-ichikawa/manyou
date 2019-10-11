@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :favorite_groups, through: :favorites, source: :group
   has_many :groups, through: :favorites, foreign_key: 'user_id'
+  has_many :reads, dependent: :destroy
 
   def do_not_destroy_last_admin
     if self.admin? && User.where(admin: :true).count == 1

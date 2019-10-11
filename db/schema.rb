@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_30_073911) do
+ActiveRecord::Schema.define(version: 2019_10_10_044059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(version: 2019_09_30_073911) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reads", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "task_id"
+    t.boolean "flag", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_reads_on_task_id"
+    t.index ["user_id", "task_id"], name: "index_reads_on_user_id_and_task_id", unique: true
+    t.index ["user_id"], name: "index_reads_on_user_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.integer "task_id"
     t.integer "label_id"
@@ -55,6 +66,7 @@ ActiveRecord::Schema.define(version: 2019_09_30_073911) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.boolean "read", default: false, null: false
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
@@ -68,5 +80,7 @@ ActiveRecord::Schema.define(version: 2019_09_30_073911) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "reads", "tasks"
+  add_foreign_key "reads", "users"
   add_foreign_key "tasks", "users"
 end
