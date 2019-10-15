@@ -52,7 +52,7 @@
         <td><%= task.deadline.strftime("%Y-%m-%d %H:%M") %></td>
         <td><center><%= task.status %></center></td>
         <td><center><%= task.priority_i18n %></center></td>
-        <td><%= link_to t('views.details'), task_path(task.id) %></td>
+        <td><%= link_to t('views.details'),  task_path(task, r: task.id) %></td>
         <td><%= link_to t('views.edit'), edit_task_path(task.id) %></td>
         <td><%= link_to t('views.destroy'), task_path(task.id), method: :delete ,data:{confirm:I18n.t('confirm')} %></td>
         <td><%= task.reads.find_by(user_id: current_user.id) ? '既読' : '未読' %></td>
