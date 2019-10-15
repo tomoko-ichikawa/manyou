@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only:[:show, :edit, :update, :destroy]
+  before_action :read_params, only:[:show]
 
   def index
 
@@ -44,6 +45,7 @@ class TasksController < ApplicationController
   end
 
   def show
+   
   end
 
   def edit
@@ -76,5 +78,13 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def read_params
+    if params[:r]
+      unless current_user.reads.find_by(task_id: params[:r])
+        current_user.reads.create(task_id: params[:r])
+      end
+    end
   end
 end
