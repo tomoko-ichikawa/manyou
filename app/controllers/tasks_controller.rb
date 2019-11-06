@@ -33,7 +33,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = Task.create params.require(:task).permit(:task_name, :deadline, :priority, :status, :content, images: [])
     @task.user_id = current_user.id
     label_ids = params[:task][:label_ids]
 
@@ -45,14 +45,13 @@ class TasksController < ApplicationController
   end
 
   def show
-   
   end
 
   def edit
   end
 
   def update
-    if @task.update(task_params)
+    if @task.update params.require(:task).permit(:task_name, :deadline, :priority, :status, :content, images: [])
       redirect_to tasks_path,notice:"taskを編集しました"
     else
       render 'edit'
@@ -73,7 +72,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:task_name, :deadline, :priority, :status, :content, label_ids:[])
+    params.require(:task).permit(:task_name, :deadline, :priority, :status, :content, :images, label_ids:[])
   end
 
   def set_task

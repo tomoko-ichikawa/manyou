@@ -26,6 +26,7 @@
                               [t('views.in_progress'),t('views.in_progress')],
                               [t('views.hold'), t('views.hold')]]
     %><br>
+    <%= form.file_field :images, multiple: true %><br>
 
       <% Label.all.each do |label| %>
           <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
