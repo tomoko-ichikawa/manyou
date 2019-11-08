@@ -7,7 +7,7 @@
   <%= form.hidden_field :status %>
   <% @task.label_ids.each do |id| %>
     <%= form.hidden_field :label_ids, multiple: true, value: id %>
-  <%= form.hidden_field :images %>
+  <%= form.hidden_field images: [], value: form.object.images.signed_id %>
   <% end %>
 
   <p>task:<%= @task.task_name %></p>
@@ -31,7 +31,7 @@
   <%= form.hidden_field :status %>
   <% @task.label_ids.each do |id| %>
     <%= form.hidden_field :label_ids, multiple: true, value: id %>
-  <%= form.hidden_field :images %>
+  <%= form.hidden_field images: [], value: form.object.images.signed_id %>
   <% end %>
 
   <%= form.submit "戻る", name: 'back' %>
