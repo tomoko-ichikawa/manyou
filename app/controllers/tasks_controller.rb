@@ -51,7 +51,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    if @task.update params.require(:task).permit(:task_name, :deadline, :priority, :status, :content, images: [])
+    if @task.update(task_params)
       redirect_to tasks_path,notice:"taskを編集しました"
     else
       render 'edit'
