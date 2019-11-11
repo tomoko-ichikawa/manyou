@@ -7,7 +7,7 @@
   <%= form.hidden_field :status %>
   <% @task.label_ids.each do |id| %>
     <%= form.hidden_field :label_ids, multiple: true, value: id %>
-  <%= form.hidden_field images: [], value: form.object.images.signed_id %>
+    <%= hidden_field_tag :blob_keys, @task.image[0].key %>
   <% end %>
 
   <p>task:<%= @task.task_name %></p>
@@ -19,7 +19,7 @@
   <% @task.labels.each do |label| %>
     <p>label：<%= label.label_name %></p>
   <% end %>
-  <p>添付ファイル: <%= @task.images %></p>
+  <p>添付ファイル: <%= @task.image %></p>
   <%= form.submit "登録する" %>
 <% end %>
 
@@ -31,8 +31,8 @@
   <%= form.hidden_field :status %>
   <% @task.label_ids.each do |id| %>
     <%= form.hidden_field :label_ids, multiple: true, value: id %>
-  <%= form.hidden_field images: [], value: form.object.images.signed_id %>
-  <% end %>
+  <%= hidden_field_tag :blob_keys, @task.image[0].key %>
+<% end %>
 
   <%= form.submit "戻る", name: 'back' %>
 <% end %>
