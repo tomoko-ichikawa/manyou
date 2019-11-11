@@ -11,8 +11,8 @@
 <% end %>
   	
 <p>添付ファイル</p>
-<% if @task.image.attached? %>
-  <% @task.image.each do |image| %>
+<% if @task.images.attached? %>
+  <% @task.images.each do |image| %>
   	<%= image_tag image %>
 	
   <% end %>

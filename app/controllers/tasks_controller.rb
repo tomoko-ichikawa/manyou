@@ -36,7 +36,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.user_id = current_user.id
     label_ids = params[:task][:label_ids]
-    @task.image.attach(ActiveStorage::Blob.find_by(key: params[:blob_key]))
+    @task.images.attach(ActiveStorage::Blob.find_by(key: params[:blob_keys]))
     if @task.save
       redirect_to tasks_path, notice: "taskを作成しました"
     else
@@ -72,7 +72,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:task_name, :deadline, :priority, :status, :content, :images, label_ids:[])
+    params.require(:task).permit(:task_name, :deadline, :priority, :status, :content, images: [], label_ids: [])
   end
 
   def set_task

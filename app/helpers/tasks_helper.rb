@@ -3,7 +3,7 @@ module TasksHelper
     if action_name == 'new' || action_name == 'confirm'
       tasks_path
     elsif action_name == 'edit'
-      task_path
+      confirm_tasks_path
     end
   end
 end
