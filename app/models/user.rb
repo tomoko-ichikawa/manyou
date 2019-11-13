@@ -17,4 +17,6 @@ class User < ApplicationRecord
       throw :abort
     end
   end
+
+  mount_uploader :icon, IconUploader
 end
