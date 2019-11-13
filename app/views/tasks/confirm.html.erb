@@ -18,19 +18,9 @@
   <% @task.labels.each do |label| %>
     <p>label：<%= label.label_name %></p>
   <% end %>
-
+  <p>添付ファイル: <%= @task.images %></p>
   <%= form.submit "登録する" %>
-<% end %>
-
-<%= form_with(model: @task, url: new_task_path, local: true, method: 'get') do |form| %>
-  <%= form.hidden_field :task_name %>
-  <%= form.hidden_field :content %>
-  <%= form.hidden_field :deadline %>
-  <%= form.hidden_field :priority %>
-  <%= form.hidden_field :status %>
-  <% @task.label_ids.each do |id| %>
-    <%= form.hidden_field :label_ids, multiple: true, value: id %>
-  <% end %>
 
   <%= form.submit "戻る", name: 'back' %>
+  <%= hidden_field_tag :blob_keys, @task.images[0].key %>
 <% end %>

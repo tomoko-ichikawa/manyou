@@ -14,5 +14,6 @@ class Task < ApplicationRecord
   has_many :tags, dependent: :destroy
   has_many :labels, through: :tags
   has_many :reads, dependent: :destroy
+  has_many_attached :images
   accepts_nested_attributes_for :labels
 end
