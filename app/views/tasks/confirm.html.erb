@@ -18,9 +18,8 @@
   <% @task.labels.each do |label| %>
     <p>label：<%= label.label_name %></p>
   <% end %>
-  <p>添付ファイル: <%= @task.image %></p>
+  <p>添付ファイル: <%= @task.images %></p>
   <%= form.submit "登録する" %>
-<% end %>
 
   <%= form.submit "戻る", name: 'back' %>
   <%= hidden_field_tag :blob_keys, @task.images[0].key %>

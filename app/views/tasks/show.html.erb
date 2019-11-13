@@ -14,7 +14,7 @@
 <% if @task.images.attached? %>
   <% @task.images.each do |image| %>
   	<%= image_tag image %>
-	
+	<%= link_to "添付ファイル", image%>
   <% end %>
 <% end %>
 
