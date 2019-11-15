@@ -60,4 +60,14 @@
     <% end %>
   </table>
 </div>
+<br>
+<%= month_calendar(attribute: :deadline, events: @tasks, number_of_weeks: 8) do |date, tasks|  %>
+  <%= date.day %>
+  <% tasks.each do |task| %>
+    <div>
+      <p id="task_calender<%= task.id%>">期限タスク:<%= link_to task.task_name, task %></p>
+    </div>
+  <% end %>
+<% end %>
+
 <%= paginate @tasks %>
