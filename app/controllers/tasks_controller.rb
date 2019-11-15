@@ -21,6 +21,7 @@ class TasksController < ApplicationController
     end
 
     @tasks = @tasks.page(params[:page]).per(7)
+    @labels = Label.all
   end
 
   def new

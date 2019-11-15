@@ -5,6 +5,7 @@
     <%= notice %>
   </div>
 <% end %>
+
 <%= render partial: 'expered_alert', locals: { expired_tasks: @expired_tasks } if @expired_tasks.present? %>
 
 <button type="button" class="btn btn-default"><%= link_to '新しいtaskを作成する', new_task_path %></button>
@@ -69,5 +70,9 @@
     </div>
   <% end %>
 <% end %>
+
+<br>
+<h2 class="text-center">各ラベルの使用頻度</h2>
+<%= column_chart (@lables), xtitle: "ラベル名" %>
 
 <%= paginate @tasks %>
