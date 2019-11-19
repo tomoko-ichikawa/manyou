@@ -21,7 +21,11 @@ class TasksController < ApplicationController
     end
 
     @tasks = @tasks.page(params[:page]).per(7)
-    @labels = Label.all
+
+    @label_ids = Tag.where(task_id: @tasks.ids).pluck(:label_id)
+    @labels = Label.where(id: @label_ids)
+    @graph = @labels.group_by(&:itself)
+
   end
 
   def new
