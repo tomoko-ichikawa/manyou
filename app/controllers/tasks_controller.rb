@@ -3,7 +3,6 @@ class TasksController < ApplicationController
   before_action :read_params, only:[:show]
 
   def index
-
     @expired_tasks = Task.expired.where(user_id: current_user.id)
 
     if params[:sort_priority]
@@ -24,8 +23,7 @@ class TasksController < ApplicationController
 
     @label_ids = Tag.where(task_id: @tasks.ids).pluck(:label_id)
     @labels = Label.where(id: @label_ids)
-    @graph = @labels.group_by(&:itself)
-
+    @graph = [@labels, @labels.group_by(&:itself).to_h]
   end
 
   def new

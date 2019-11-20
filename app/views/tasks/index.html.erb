@@ -73,6 +73,6 @@
 
 <br>
 <h2 class="text-center">各ラベルの使用頻度</h2>
-<%= line_chart @graph, xtitle: "ラベル名" %>
+<%= column_chart (@graph), xtitle: "ラベル名" %>
 
 <%= paginate @tasks %>
