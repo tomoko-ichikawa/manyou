@@ -3,7 +3,6 @@ class TasksController < ApplicationController
   before_action :read_params, only:[:show]
 
   def index
-
     @expired_tasks = Task.expired.where(user_id: current_user.id)
 
     if params[:sort_priority]
@@ -21,6 +20,18 @@ class TasksController < ApplicationController
     end
 
     @tasks = @tasks.page(params[:page]).per(7)
+
+    @labels = Label.all
+
+    i = 1
+    label_numbers = []
+    while i < (@labels.length+1)
+      label_number = Tag.where(label_id: i).count
+      label_numbers << label_number
+      i += 1
+    end
+    label_names = @labels.pluck(:label_name)
+    @graph = [label_names, label_numbers].transpose.to_h
   end
 
   def new
