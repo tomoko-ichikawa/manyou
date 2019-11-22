@@ -22,7 +22,8 @@ class TasksController < ApplicationController
     @tasks = @tasks.page(params[:page]).per(7)
 
     @labels = Label.all
-
+    label_names = @labels.pluck(:label_name)
+    
     i = 1
     label_numbers = []
     while i < (@labels.length+1)
@@ -30,7 +31,7 @@ class TasksController < ApplicationController
       label_numbers << label_number
       i += 1
     end
-    label_names = @labels.pluck(:label_name)
+    
     @graph = [label_names, label_numbers].transpose.to_h
   end
 
