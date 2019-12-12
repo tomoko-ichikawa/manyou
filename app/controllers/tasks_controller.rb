@@ -50,6 +50,7 @@ class TasksController < ApplicationController
     label_ids = params[:task][:label_ids]
     @task.images.attach(ActiveStorage::Blob.find_by(key: params[:blob_keys]))
     if @task.save
+      DeadlineMailer.deadline(@task).deliver
       redirect_to tasks_path, notice: "taskを作成しました"
     else
       render 'new'
