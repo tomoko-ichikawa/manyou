@@ -73,7 +73,7 @@ gem 'rails-i18n', '~> 5.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'momentjs-rails', '>= 2.9.0'
 
-gem 'kaminari', '~> 0.17.0'
+gem 'kaminari', '~> 1.2.1'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 
 gem 'bcrypt', '3.1.11'
